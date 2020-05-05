@@ -89,7 +89,15 @@ class ProxyEditScreen extends Screen
         return [
             Layout::rows([
                 Input::make('item.ip_port')
-                    ->title('IP:PORT')
+                    ->title('IP:PORT'),
+                
+                Select::make('item.type')
+                    ->options([
+                        'http' => 'HTTP',
+                        'https' => 'HTTPS',
+                        'socks5' => 'SOCKS5',
+                        'socks4' => 'SOCKS4'
+                ])
             ])
         ];
     }

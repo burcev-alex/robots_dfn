@@ -50,7 +50,7 @@ class MainMenuComposer
             ->add(Menu::MAIN,
                 ItemMenu::label('Лог')
                     ->icon('icon-list')
-                    ->route('platform.log')
+                    ->route('platform.logging.list')
             );
     }
 }

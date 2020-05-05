@@ -1,26 +1,26 @@
 <?php
 namespace App\Orchid\Screens;
 
-use App\Orchid\Layouts\ProxyListLayout;
-use App\Proxy;
+use App\Orchid\Layouts\LoggingListLayout;
+use App\Logging;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
-class ProxyListScreen extends Screen
+class LoggingListScreen extends Screen
 {
     /**
      * Display header name.
      *
      * @var string
      */
-    public $name = 'Proxy List';
+    public $name = 'Log';
 
     /**
      * Display header description.
      *
      * @var string
      */
-    public $description = '';
+    public $description = 'История запросов';
 
     /**
      * Query data.
@@ -30,7 +30,7 @@ class ProxyListScreen extends Screen
     public function query(): array
     {
         return [
-            'proxy' => Proxy::paginate()
+            'logging' => Logging::paginate()
         ];
     }
 
@@ -41,14 +41,7 @@ class ProxyListScreen extends Screen
      */
     public function commandBar(): array
     {
-        return [
-            Link::make('Добавить')
-                ->icon('icon-pencil')
-                ->route('platform.proxy.edit'),
-            Link::make('Import (csv)')
-                ->icon('icon-import')
-                ->route('platform.proxy.import')
-        ];
+        return [];
     }
 
     /**
@@ -59,7 +52,7 @@ class ProxyListScreen extends Screen
     public function layout(): array
     {
         return [
-            ProxyListLayout::class
+            LoggingListLayout::class
         ];
     }
 }

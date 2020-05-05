@@ -9,7 +9,9 @@ use App\Orchid\Screens\MoodleUserEditScreen;
 use App\Orchid\Screens\MoodleUserListScreen;
 use App\Orchid\Screens\ProxyEditScreen;
 use App\Orchid\Screens\ProxyListScreen;
+use App\Orchid\Screens\ProxyImportScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\LoggingListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -57,5 +59,8 @@ $this->router->screen('proxy/{post?}', ProxyEditScreen::class)
 $this->router->screen('proxys', ProxyListScreen::class)
     ->name('platform.proxy.list');
 
-Route::screen('log', LogScreen::class)->name('platform.log');
+    $this->router->screen('proxys_import', ProxyImportScreen::class)
+    ->name('platform.proxy.import');
+
+Route::screen('logs', LoggingListScreen::class)->name('platform.logging.list');
 //Route::screen('/dashboard/screen/idea', 'Idea::class','platform.screens.idea');

@@ -29,6 +29,7 @@ class ProxyListLayout extends Table
                 }),
             
             TD::set('ip_port', 'IP:PORT'),
+            TD::set('type', 'Типы прокси'),
         ];
     }
 }

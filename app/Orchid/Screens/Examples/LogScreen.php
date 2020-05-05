@@ -58,7 +58,7 @@ class LogScreen extends Screen
                     'values' => [25, 50, -10, 15, 18, 32, 27],
                 ],
                 [
-                    'name'   => 'Зубыч',
+                    'name'   => 'Петров',
                     'values' => [15, 20, -3, -15, 58, 12, -17],
                 ],
                 [

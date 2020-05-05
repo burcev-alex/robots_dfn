@@ -13,6 +13,7 @@ class Proxy extends Model
      * @var array
      */
     protected $fillable = [
-        'ip_port'
+        'ip_port',
+        'type'
     ];
 }
