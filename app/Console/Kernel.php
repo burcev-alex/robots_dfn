@@ -27,9 +27,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('visiting:page')
-         ->everyMinute()
-         ->between('7:00', '23:59');
+        // валидация прокси-серверов
+        $schedule->command('validator:proxy')->dailyAt('03:00');
+
+        // генерация задач на день
+        $schedule->command('generation:schedule')->dailyAt('05:00');
+
+        // выполнение задач
+        $schedule->command('visiting:page')->everyMinute()->between('7:00', '20:00');
     }
 
     /**
