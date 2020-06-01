@@ -51,6 +51,11 @@ class MainMenuComposer
                 ItemMenu::label('Лог')
                     ->icon('icon-list')
                     ->route('platform.logging.list')
+            )
+            ->add(Menu::MAIN,
+                ItemMenu::label('История на текущий день')
+                    ->icon('icon-list')
+                    ->route('platform.history.list')
             );
     }
 }

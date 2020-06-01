@@ -106,11 +106,11 @@ class GenerationSchedule extends Command
                                 $randomLink = $link[0];
                         
                                 $list[] = [
-                            'type' => 'page',
-                            'user_id' => $user_id,
-                            'time_start' => $i,
-                            'link' => $randomLink
-                        ];
+                                    'type' => 'page',
+                                    'user_id' => $user_id,
+                                    'time_start' => $i,
+                                    'link' => $randomLink
+                                ];
                             } while ($i <= $time_to);
                         }
                     }
