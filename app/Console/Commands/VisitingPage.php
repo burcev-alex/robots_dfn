@@ -162,11 +162,6 @@ class VisitingPage extends Command
 
         $domain = "http://www.dfn.mdpu.org.ua/";
 
-        $proxy = [
-            "ip_port" => "49.12.4.194:12101",
-            "type" => "socks5"
-        ];
-
         $finalUrl = $domain.$url;
 
         $ch = curl_init();

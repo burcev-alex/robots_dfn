@@ -22,6 +22,9 @@ class LoggingListLayout extends Table
     public function columns(): array
     {
         return [
+            TD::set('created_at', 'Время запуска')->render(function (Logging $item) {
+                return date("d.m.Y H:i:s", strtotime($item->created_at));
+            }),
             TD::set('user_id', 'ФИО')
                 ->render(function (Logging $user) {
                     return $user->user['full_name'];
