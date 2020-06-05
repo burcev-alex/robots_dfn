@@ -27,6 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        set_time_limit(0);
+        
         // валидация прокси-серверов
         $schedule->command('validator:proxy')->dailyAt('03:00');
 

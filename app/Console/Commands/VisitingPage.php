@@ -50,25 +50,6 @@ class VisitingPage extends Command
         // список прокси
         $proxyList = Proxy::all()->toArray();
 
-        $proxyListTest = [
-            [
-                'ip_port' => '5.53.124.38:80',
-                'type' => 'http'
-            ],
-            [
-                'ip_port' => '52.179.231.206:80',
-                'type' => 'http'
-            ],
-            [
-                'ip_port' => '178.159.40.19:8080',
-                'type' => 'http'
-            ],
-            [
-                'ip_port' => '139.59.73.89:80',
-                'type' => 'http'
-            ],
-        ];
-
         $count = 0;
 
         /* Если пришел тот самый день и то самое время пары - инициализируем функции */
@@ -119,11 +100,25 @@ class VisitingPage extends Command
                 if (substr_count($this->parseTitle($resPageHtml), "____") == 0) {
                     $loggingData['link'] = $data['link'];
                     $loggingData['description'] = $this->parseTitle($resPageHtml);
-                    $loggingData['status'] = 'success';
+
+                    if(substr_count($loggingData['description'], "Not Found") > 0 || substr_count($loggingData['description'], "error code") > 0){
+                        Proxy::destroy($randProxy["id"]);
+                        $loggingData['status'] = 'error';
+                    }
+                    else{
+                        $loggingData['status'] = 'success';
+                    }
+                    
                 } else {
                     $resAuthHtml = $this->auth($data['user_id'], $randProxy, $postFields);
                     $loggingData['link'] = "http://www.dfn.mdpu.org.ua/login/index.php";
                     $loggingData['description'] = $this->parseTitle($resAuthHtml);
+
+                    if(substr_count($loggingData['description'], "Not Found") > 0 || substr_count($loggingData['description'], "error code") > 0){
+                        Proxy::destroy($randProxy["id"]);
+                        $loggingData['status'] = 'error';
+                    }
+
                     if (substr_count($resAuthHtml, "Личный кабинет") > 0) {
                         $loggingData['status'] = 'success';
                     } else {
@@ -149,7 +144,7 @@ class VisitingPage extends Command
         if(strlen($text) == 0){
             return $text;
         }
-        if(substr_count($text, "error code") > 0){
+        if(substr_count(strtolower($text), "error code") > 0){
             return $text;
         
         }
@@ -188,7 +183,9 @@ class VisitingPage extends Command
             $url = $arLink[1];
         }
 
-        #$proxy = [];
+        if(IntVal(rand(1,5)) === 2){
+            $proxy = [];
+        }
 
         $domain = "http://www.dfn.mdpu.org.ua/";
 

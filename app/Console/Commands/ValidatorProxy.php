@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Mail;
 use App\Proxy;
 use Illuminate\Console\Command;
 
@@ -46,6 +47,8 @@ class ValidatorProxy extends Command
             
         $countLine = count($items);
 
+        $count = 0;
+
         foreach ($items as $key => $data) {
 
             $url = 'http://myip.ru/';
@@ -81,6 +84,7 @@ class ValidatorProxy extends Command
             
             if(IntVal($http_code) >= 200 && IntVal($http_code) <= 399){
                 // все ок, оставляем прокси-сервер
+                $count++;
             }
             else{
                 Proxy::destroy($data['id']);
@@ -88,6 +92,12 @@ class ValidatorProxy extends Command
 
             $bar = $this->output->createProgressBar($countLine);
             
+        }
+
+        if($count < 5){
+            Mail::send('emails.limit', ['mess' => 'Осталось менее 5 адресов. Загрузите новую пачку!'], function ($m){
+                $m->to("Alexander.burzev@gmail.com", "Alexander Bercev")->subject('BOT-DFN. Прокси-сервера!');
+              });
         }
 
         if (count($items) > 0) {

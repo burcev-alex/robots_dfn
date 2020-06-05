@@ -22,6 +22,7 @@ class LoggingListLayout extends Table
     public function columns(): array
     {
         return [
+            TD::set('status', 'Статус')->sort(),
             TD::set('created_at', 'Время запуска')->render(function (Logging $item) {
                 return date("Y.m.d H:i:s", strtotime($item->created_at));
             })->sort(),
@@ -31,9 +32,8 @@ class LoggingListLayout extends Table
                 })->sort(),
             
             TD::set('ip_port', 'Proxy'),
-            TD::set('link', 'Ссылка'),
-            TD::set('status', 'Статус')->sort(),
             TD::set('description', 'Результат'),
+            TD::set('link', 'Ссылка'),
         ];
     }
 }
