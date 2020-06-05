@@ -50,12 +50,16 @@ class VisitingPage extends Command
         // список прокси
         $proxyList = Proxy::all()->toArray();
 
+        $count = 0;
+
         /* Если пришел тот самый день и то самое время пары - инициализируем функции */
         foreach ($items as $iteration => $data) {
             
             if (IntVal($data['time_start']) > time()) {
                 continue;
             }
+
+            if($count > 10) break;
 
             $user = MoodleUser::where('id', $data['user_id'])->get()->toArray()[0];
 
@@ -68,12 +72,14 @@ class VisitingPage extends Command
             $postFields = array(
                 "username" => $user['login'],
                 "password" => $user['pass'],
-                "anchor"=>""
+                "anchor" => ""
             );
 
             // случайный прокси
             shuffle($proxyList);
             $randProxy = current($proxyList);
+
+            #$randProxy["ip_port"] = "5.53.124.38:80";
 
             $loggingData = [
                 'ip_port' => $randProxy["ip_port"],
@@ -113,7 +119,12 @@ class VisitingPage extends Command
 
             SchedulePage::destroy($data['id']);
 
-            sleep(5);
+            unset($loggingData);
+            unset($randProxy);
+            unset($user);
+            $count++;
+
+            sleep(rand(1,3));
         }
     }
 
@@ -153,12 +164,14 @@ class VisitingPage extends Command
 
     private function request($url, $cookie, $proxy = [], $post = [])
     {
-        $_SERVER['DOCUMENT_ROOT'] = "D:/WORK/dfn-laravel.loc/public";
+        $_SERVER['DOCUMENT_ROOT'] = "/var/www/html/public";
 
         if(substr_count($url, "dfn.mdpu.org.ua") > 0){
             $arLink = explode("org.ua/", $url);
             $url = $arLink[1];
         }
+
+        #$proxy = [];
 
         $domain = "http://www.dfn.mdpu.org.ua/";
 

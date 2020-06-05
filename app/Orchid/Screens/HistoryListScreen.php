@@ -2,6 +2,7 @@
 namespace App\Orchid\Screens;
 
 use App\Orchid\Layouts\HistoryListLayout;
+use App\Orchid\Screens\LoggingFiltersLayout;
 use App\SchedulePage;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
@@ -30,7 +31,11 @@ class HistoryListScreen extends Screen
     public function query(): array
     {
         return [
-            'history' => SchedulePage::paginate()
+            'history' => SchedulePage::with('user')
+                ->filters()
+                ->filtersApplySelection(LoggingFiltersLayout::class)
+                ->defaultSort('id', 'asc')
+                ->paginate(),
         ];
     }
 
@@ -52,6 +57,7 @@ class HistoryListScreen extends Screen
     public function layout(): array
     {
         return [
+            LoggingFiltersLayout::class,
             HistoryListLayout::class
         ];
     }

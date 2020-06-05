@@ -2,6 +2,7 @@
 namespace App\Orchid\Screens;
 
 use App\Orchid\Layouts\LoggingListLayout;
+use App\Orchid\Screens\LoggingFiltersLayout;
 use App\Logging;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
@@ -30,7 +31,11 @@ class LoggingListScreen extends Screen
     public function query(): array
     {
         return [
-            'logging' => Logging::paginate()
+            'logging' => Logging::with('user')
+                ->filters()
+                ->filtersApplySelection(LoggingFiltersLayout::class)
+                ->defaultSort('id', 'desc')
+                ->paginate(),
         ];
     }
 
@@ -52,6 +57,7 @@ class LoggingListScreen extends Screen
     public function layout(): array
     {
         return [
+            LoggingFiltersLayout::class,
             LoggingListLayout::class
         ];
     }

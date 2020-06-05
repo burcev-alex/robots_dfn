@@ -5,10 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
 use App\MoodleUser;
+use Orchid\Filters\Filterable;
 
 class Schedule extends Model
 {
-    use AsSource;
+    use AsSource, Filterable;
+
+    protected $allowedFilters = [
+        'user_id',
+        'link',
+        'title',
+        'day',
+        'type_week',
+        'lesson_number'
+    ];
 
     /**
      * @var array

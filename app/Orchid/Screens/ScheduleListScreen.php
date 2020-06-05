@@ -5,6 +5,7 @@ use App\Orchid\Layouts\ScheduleListLayout;
 use App\Schedule;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
+use App\Orchid\Screens\ScheduleFiltersLayout;
 
 class ScheduleListScreen extends Screen
 {
@@ -30,7 +31,11 @@ class ScheduleListScreen extends Screen
     public function query(): array
     {
         return [
-            'schedules' => Schedule::paginate()
+            'schedules' => Schedule::with('user')
+                ->filters()
+                ->filtersApplySelection(ScheduleFiltersLayout::class)
+                ->defaultSort('id', 'asc')
+                ->paginate(),
         ];
     }
 
@@ -56,6 +61,7 @@ class ScheduleListScreen extends Screen
     public function layout(): array
     {
         return [
+            ScheduleFiltersLayout::class,
             ScheduleListLayout::class
         ];
     }
