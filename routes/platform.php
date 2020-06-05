@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Orchid\Screens\Examples\LogScreen;
 use App\Orchid\Screens\ScheduleEditScreen;
 use App\Orchid\Screens\ScheduleListScreen;
+use App\Orchid\Screens\ScheduleCloneScreen;
 use App\Orchid\Screens\MoodleUserEditScreen;
 use App\Orchid\Screens\MoodleUserListScreen;
 use App\Orchid\Screens\ProxyEditScreen;
@@ -60,8 +61,11 @@ $this->router->screen('proxy/{post?}', ProxyEditScreen::class)
 $this->router->screen('proxys', ProxyListScreen::class)
     ->name('platform.proxy.list');
 
-    $this->router->screen('proxys_import', ProxyImportScreen::class)
+$this->router->screen('proxys_import', ProxyImportScreen::class)
     ->name('platform.proxy.import');
+
+$this->router->screen('schedule_clone', ScheduleCloneScreen::class)
+    ->name('platform.schedule.clone');
 
 Route::screen('logs', LoggingListScreen::class)->name('platform.logging.list');
 Route::screen('history', HistoryListScreen::class)->name('platform.history.list');

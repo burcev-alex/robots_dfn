@@ -56,6 +56,11 @@ class MainMenuComposer
                 ItemMenu::label('История на текущий день')
                     ->icon('icon-list')
                     ->route('platform.history.list')
+            )
+            ->add(Menu::MAIN,
+                ItemMenu::label('Клонирование расписания')
+                    ->icon('icon-list')
+                    ->route('platform.schedule.clone')
             );
     }
 }
