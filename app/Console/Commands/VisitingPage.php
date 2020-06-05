@@ -50,6 +50,25 @@ class VisitingPage extends Command
         // список прокси
         $proxyList = Proxy::all()->toArray();
 
+        $proxyListTest = [
+            [
+                'ip_port' => '5.53.124.38:80',
+                'type' => 'http'
+            ],
+            [
+                'ip_port' => '52.179.231.206:80',
+                'type' => 'http'
+            ],
+            [
+                'ip_port' => '178.159.40.19:8080',
+                'type' => 'http'
+            ],
+            [
+                'ip_port' => '139.59.73.89:80',
+                'type' => 'http'
+            ],
+        ];
+
         $count = 0;
 
         /* Если пришел тот самый день и то самое время пары - инициализируем функции */
@@ -112,8 +131,6 @@ class VisitingPage extends Command
                     }
                 }
             }
-
-            var_dump($loggingData);
 
             $this->log($loggingData);
 

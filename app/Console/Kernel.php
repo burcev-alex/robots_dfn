@@ -35,6 +35,9 @@ class Kernel extends ConsoleKernel
 
         // выполнение задач
         $schedule->command('visiting:page')->everyMinute()->between('7:00', '20:00');
+
+        // отчет посещения за предыдущий день
+        $schedule->command('visiting:report')->dailyAt('06:00');
     }
 
     /**

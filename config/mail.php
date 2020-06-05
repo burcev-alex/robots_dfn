@@ -50,6 +50,8 @@ return [
 
         'mailgun' => [
             'transport' => 'mailgun',
+            'domain' => env('MAIL_DOMAIN'),
+	        'secret' => env('MAIL_KEY'),
         ],
 
         'postmark' => [
