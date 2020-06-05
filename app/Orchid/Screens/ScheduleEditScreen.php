@@ -107,8 +107,7 @@ class ScheduleEditScreen extends Screen
 
                 TextArea::make('post.link')
                     ->title('Ссылки которые нужно посетить')
-                    ->rows(3)
-                    ->maxlength(200)
+                    ->rows(5)
                     ->placeholder('Минимум одна ссылка, если больше тогда каждая в новой строке'),
 
                 Relation::make('post.user_id')

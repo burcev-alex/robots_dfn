@@ -183,7 +183,7 @@ class VisitingPage extends Command
             $url = $arLink[1];
         }
 
-        if(IntVal(rand(1,5)) === 2){
+        if(IntVal(rand(1,20)) === 10){
             $proxy = [];
         }
 
